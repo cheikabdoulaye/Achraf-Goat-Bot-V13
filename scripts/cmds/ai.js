@@ -1,4 +1,4 @@
-€cmd install Ai.js const axios = require('axios');
+const axios = require('axios');
 
 async function fetchFromAI(url, params) {
  try {
@@ -15,7 +15,7 @@ async function getAIResponse(input, userName, userId, messageID) {
  { url: 'https://ai-chat-gpt-4-lite.onrender.com/api/hercai', params: { question: input } }
  ];
 
- let response = ` 𝑆𝑎𝑙𝑢𝑡, 𝑗𝑒 𝑠𝑢𝑖𝑠 𝑙'𝑖𝑛𝑡𝑒𝑙𝑙𝑖𝑔𝑒𝑛𝑐𝑒 𝐴𝑟𝑡𝑖𝑓𝑖𝑐𝑖𝑒𝑙𝑙𝑒 𝐶𝑟éé 𝑝𝑎𝑟 𝑀𝐸𝑆𝑆𝐼𝐸 𝑂𝑆𝐴𝑁𝐺𝑂 𝑞𝑢𝑒 𝑝𝑢𝑖𝑠-𝑗𝑒 𝑝𝑜𝑢𝑟 vous ? ?`;
+ let response = ` Salut moi c'est Cheik Amir une Intelligence Artificielle créer par Cheik Amir mon maître comment puis-je vous aider aujourd'hui..?`;
  let currentIndex = 0;
 
  for (let i = 0; i < services.length; i++) {
@@ -30,30 +30,48 @@ async function getAIResponse(input, userName, userId, messageID) {
 
  return { response, messageID };
 }
-module.exports = {
-  config: {
-    name: 'ai',
-    author: 'Arn',
-    role: 0,
-    category: 'ai',
-    shortDescription: 'ai to ask anything',
-  },
-  onStart: async function ({ api, event, args }) {
-    const input = args.join(' ').trim();
-    if (!input) {
-      api.sendMessage(`SATORU II\n━━━━━━━━━━━━━━━━\nPlease provide a question or statement.\n━━━━━━━━━━━━━━━━`, event.threadID, event.messageID);
-      return;
-    }
 
-    const { response, messageID } = await getAIResponse(input, event.senderID, event.messageID);
-    api.sendMessage(`MESSIE OSANGO' \n━━━━━━━━━━━━━━━━\n${response}\n━━━━━━━━━━━━━━━━`, event.threadID, messageID);
-  },
-  onChat: async function ({ event, message }) {
-    const messageContent = event.body.trim().toLowerCase();
-    if (messageContent.startsWith("ai")) {
-      const input = messageContent.replace(/^ai\s*/, "").trim();
-      const { response, messageID } = await getAIResponse(input, event.senderID, message.messageID);
-      message.reply(`༒✫𝑆𝐴𝑇𝑂𝑅𝑈༺✯༻ 𝐺𝑂𝐽𝑂 𝐵𝑂𝑇✫༒\n____*____*___*___*____*___*_______*_____*_____*__\n${response}\n-------------------------------------------------------`, messageID);
-    }
-  }
+module.exports = {
+ config: {
+ name: 'ai',
+ author: 'Cheik Amir',
+ role: 0,
+ aliase: ["ai"],
+ category: 'ai-chat',
+ shortDescription: 'ai to ask anything',
+ },
+ onStart: async function ({ api, event, args }) {
+ const input = args.join(' ').trim();
+ if (!input) {
+ api.sendMessage("Salut moi c'est Cheik Amir une Intelligence Artificielle créer par Cheik Amir Guiatin mon maître comment puis-je vous aider aujourd'hui ?...😁", event.threadID, event.messageID);
+ return;
+ }
+
+ api.getUserInfo(event.senderID, async (err, ret) => {
+ if (err) {
+ console.error(err);
+ return;
+ }
+ const userName = ret[event.senderID].name;
+ const { response, messageID } = await getAIResponse(input, userName, event.senderID, event.messageID);
+ api.sendMessage(`👨‍💻 Cheik Amir 👨‍💻 \n━━━━━━━━━━━━━━━━\n${response}\n━━━━━━━━━━━━━━━━ Another Me 🙃`, event.threadID, messageID);
+ });
+ },
+ onChat: async function ({ api, event, message }) {
+ const messageContent = event.body.trim().toLowerCase();
+ if (messageContent.startsWith("ai")) {
+ const input = messageContent.replace(/^ai\s*/, "").trim();
+ api.getUserInfo(event.senderID, async (err, ret) => {
+ if (err) {
+ console.error(err);
+ return;
+ }
+ const userName = ret[event.senderID].name;
+ const { response, messageID } = await getAIResponse(input, userName, event.senderID, message.messageID);
+ message.reply(`👨‍💻 Cheik Amir 👨‍💻 \n━━━━━━━━━━━━━━━━\n${userName} , ${response} ━━━━━━━━━━━━━━━━ Another Me 🙃\n `, messageID);
+api.setMessageReaction("👀", event.messageID, () => {}, true);
+
+ });
+ }
+ }
 };

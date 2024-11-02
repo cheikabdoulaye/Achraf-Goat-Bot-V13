@@ -29,7 +29,7 @@ module.exports = {
 			welcomeMessage: "𝐽𝑒 𝑣𝑜𝑢𝑠 𝑟𝑒𝑚𝑒𝑟𝑐𝑖𝑒 𝑑𝑒 𝑚'𝑎𝑣𝑜𝑖𝑟 𝐴𝐽𝑂𝑈𝑇é 𝑑𝑎𝑛𝑠 𝑐𝑒 𝑔𝑟𝑜𝑢𝑝𝑒 𝑚𝑜𝑛 𝑐𝑟𝑒𝑎𝑡𝑒𝑢𝑟 𝑚'𝑎 𝑁𝑂𝑀𝑀é 𝑒𝑛 𝑡𝑎𝑛𝑡 𝑞𝑢𝑒 𝑠𝑎𝑡𝑜𝑟𝑢 𝑔𝑜𝑗𝑜 𝑏𝑜𝑡 𝐸𝐶𝑅𝐼𝑉𝐸𝑍 €help !",
 			multiple1: "you",
 			multiple2: "you guys",
-			defaultWelcomeMessage: `Salut {userName} \Bienvenue dans le groupe : {boxName}\npasse une excellente journée et n'oublie pas que Shibai Otsutsuki c'est le meilleur 😊`
+			defaultWelcomeMessage: `Salut {userName} \Bienvenue dans le groupe : {boxName}\npasse une excellente journée `
 		}
 	},
 
